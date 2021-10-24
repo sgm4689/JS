@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Web Audio Viz - Start</title>
+	<link rel='stylesheet' type="text/css" href="AV.css">
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="./howler.js-master/dist/howler.js"></script>
+</head>
+<body>
+    
+     <div class="centered"><div class="neon">Pong</div>
+    <canvas width="640" height="400"></canvas>
+    </div>  
+        <div id='app'>
+            <b-table :items="items" head-variant='dark' striped></b-table>
+        </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCAP-l-Dqj1BKVNptjVrTgHwVOMeEM_D8s",
+        authDomain: "pong-leaderboard.firebaseapp.com",
+        databaseURL: "https://pong-leaderboard.firebaseio.com",
+        projectId: "pong-leaderboard",
+        storageBucket: "pong-leaderboard.appspot.com",
+        messagingSenderId: "996596046214",
+        appId: "1:996596046214:web:8a838b9a642c5b1488b407",
+        measurementId: "G-BD2YRGS7GW"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+    <script src="loader.js" type="module"></script>
+</body>
+<!--citation: https://codepen.io/hoaxwars/pen/OJJXMwp -->
+<!--Used to create the text effect on the title-->
+<svg >
+<defs>
+  
+   <filter id="stroke">
+     <feMorphology operator="dilate" radius="1" 
+in="SourceGraphic" result="outside" />
+     <feMorphology operator="dilate" radius="2" 
+in="outside" result="thickened" />
+     <feComposite operator="out" in2="SourceGraphic" in="thickened" result="stroke"/>
+     
+  </filter>
+  
+  <filter id="inner-glow" >
+    <feFlood flood-color="#4B0082"/>
+    <feComposite in2="SourceAlpha" operator="out"/>
+    <feGaussianBlur stdDeviation="0.5" result="blur"/>
+    <feComposite operator="atop" in2="SourceGraphic"/>
+    
+</filter>
+  
+  <filter id="outer-glow" >
+		<!-- Thicken out the original shape -->
+		<feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken" />
+
+		<!-- Use a gaussian blur to create the soft blurriness of the glow -->
+		<feGaussianBlur in="thicken" stdDeviation="5" result="blurred" />
+
+		<!-- Change the colour -->
+		<feFlood  flood-color="#8B008B" result="glowColor" />
+
+		<!-- Color in the glows -->
+		<feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+
+		<!--	Layer the effects together -->
+		<feMerge>
+			<feMergeNode in="softGlow_colored"/>
+			<feMergeNode in="SourceGraphic"/>
+		</feMerge>
+
+	</filter>
+  
+  <filter id="outer-glow1" >
+		<!-- Thicken out the original shape -->
+		<feMorphology operator="dilate" radius="20" in="SourceAlpha" result="thicken" />
+
+		<!-- Use a gaussian blur to create the soft blurriness of the glow -->
+		<feGaussianBlur in="thicken" stdDeviation="25" result="blurred" />
+
+		<!-- Change the colour -->
+		<feFlood  flood-color="#800080" result="glowColor" />
+
+		<!-- Color in the glows -->
+		<feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+
+		<!--	Layer the effects together -->
+		<feMerge>
+			<feMergeNode in="softGlow_colored"/>
+			<feMergeNode in="SourceGraphic"/>
+		</feMerge>
+
+	</filter>
+  </defs>
+  
+  
+</svg>
+
+</html>

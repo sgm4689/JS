@@ -1,0 +1,35 @@
+body {
+		font-family: tahoma, verdana, sans serif;
+        background: black !important;
+	}
+
+	canvas {
+		margin-left:10px;
+		margin-top:10px;
+        margin-bottom: 8em;
+		box-shadow: 4px 4px 8px 8px rgba(22,22,22,0.8);
+		background: #222;
+	}
+
+html{
+  background:#000106;
+}
+
+.centered{
+  left:50em;
+  top:50em;
+  text-align:center;
+  
+}
+
+.neon{
+  font-family:'Neon 80s';
+  font-size:4em;
+  color:#ffedff;
+  padding:30px;
+  filter:url(#stroke) url(#inner-glow) url(#outer-glow) url(#outer-glow1);
+}
+
+.b-table-striped{
+    color:'#000000';
+}
